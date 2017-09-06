@@ -1,0 +1,450 @@
+<portlet-app version="2.0"
+             xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+
+    <portlet>
+        <portlet-name>SCORMApplication</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LessonViewerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Lesson Viewer</title>
+        </portlet-info>
+
+
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+
+    </portlet>
+
+    <portlet>
+        <portlet-name>SCORMApplicationAdmin</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.AdminView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis Administration</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>PackageManager</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LessonManagerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Lesson Management</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ContentManager</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.ContentManagerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Content Management</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>Gradebook</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.GradebookView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Gradebook Viewer</title>
+        </portlet-info>
+
+        <security-role-ref>
+            <role-name>guest</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+
+    </portlet>
+
+    <portlet>
+        <portlet-name>TinCanStatementViewer</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.TinCanStatementViewerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis TinCan Statement Viewer</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>SocialActivitiesTinCanMapper</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.SocialActivitiesTinCanMapperView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Social Activities TinCan Mapper</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningTranscript</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LearningTranscriptView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis Learning Transcript</title>
+        </portlet-info>
+
+        <security-role-ref>
+            <role-name>power-user</role-name>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>user</role-name>
+        </security-role-ref>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LRSToActivityMapper</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LRSToActivityMapperView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>LRS to Activity Mapper View</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisSlidesEditor</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LessonStudioView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Lesson Studio</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AchievedCertificates</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.AchievedCertificatesView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Achieved Certificates</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningPaths</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LearningPathsView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>My Learning Paths</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyLessons</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.MyLessonsView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Lessons</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisActivities</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.ValamisActivitiesView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis Activities</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisStudySummary</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.ValamisStudySummaryView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis Study Summary</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>RecentLessons</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.RecentLessonsView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Recent</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyCertificates</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.MyCertificatesView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Learning Path Statistics</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyCourses</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.MyCoursesView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Course Statistics</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AllCourses</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.AllCoursesView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Courses Manager</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AllCoursesStudent</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.AllCoursesStudentView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Courses Browser</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ContentProviderManager</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.ContentProviderManagerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Content Provider Manager</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisReport</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.ValamisReportView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Valamis Report</title>
+        </portlet-info>
+
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningReport</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.LearningReportView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Learning Pattern Report</title>
+        </portlet-info>
+    </portlet>
+
+    <portlet>
+        <portlet-name>CertExpirationTracker</portlet-name>
+        <display-name>Valamis</display-name>
+        <portlet-class>com.arcusys.valamis.web.portlet.CertificateExpirationTrackerView</portlet-class>
+
+        <expiration-cache>0</expiration-cache>
+
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
+
+        <portlet-info>
+            <title>Сertificate Expiration Tracker</title>
+        </portlet-info>
+    </portlet>
+
+</portlet-app>

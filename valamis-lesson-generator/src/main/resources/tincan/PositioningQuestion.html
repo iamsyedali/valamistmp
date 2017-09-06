@@ -1,0 +1,193 @@
+<section data-state="positioning_{{id}}_{{questionNumber}}" id="task{{id}}_{{questionNumber}}">
+    <div class="position-question">
+        <div class="valamis-question js-valamis-question content{{id}}_{{questionNumber}}">
+            <div class="question-text">{{{text}}}</div>
+            <div class="answers-options js-answers-options">
+                <div class="answer-container">
+                    <ul id="sortable{{id}}_{{questionNumber}}"></ul>
+                </div>
+            </div>
+            <!--{{#autoShowAnswer}} -->
+            <button class="button big check-answer-button js-localized-label" id="checkAnswerButton" data-value="checkLabel"
+                    onclick="TinCanCourseHelpers['positioningShowAnswers_{{id}}_{{questionNumber}}']()">
+            </button>
+            <!--{{/autoShowAnswer}} -->
+        </div>
+        {{#autoShowAnswer}}
+        <div class="valamis-question js-valamis-question js-question-feedback answers answers{{id}}_{{questionNumber}}">
+            <div class="question-text">{{{text}}}</div>
+
+            <div id="usersAnswers{{id}}_{{questionNumber}}" class="answers-options clearfix">
+                <div class="answer-container">
+                    <ul id="usersSortable{{id}}_{{questionNumber}}"></ul>
+                </div>
+            </div>
+            <div class="result-icon shift-left val-icon js-result-icon"></div>
+            <div id="answerCorrectness{{id}}_{{questionNumber}}" class="result-label">
+                <div class="js-right-answer-correctness">{{{rightAnswerText}}}</div>
+                <div class="js-wrong-answer-correctness">{{{wrongAnswerText}}}</div>
+            </div>
+
+            <div class="decorative-line">
+                <div class="choice-line"></div>
+            </div>
+
+            {{#hasExplanation}}
+            <div class="js-localized-label invisible-font" data-value="explanationLabel"></div>
+            <div id="explanation" class="question-explanation js-question-explanation">{{{explanation}}}</div>
+            {{/hasExplanation}}
+        </div>
+    </div>
+{{/autoShowAnswer}}
+</section>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var data = answersToJSON('{{answers}}');
+        var mappedData = [];
+
+        var questionId = 'positioning_{{id}}_{{questionNumber}}';
+        var storedAnswers = (TinCanUserAnswers.hasOwnProperty(questionId)) ? TinCanUserAnswers[questionId] : '';
+
+        var order;
+        if (storedAnswers){
+            order = _.map(storedAnswers.split("[,]"), function(item) {return parseInt(item)});
+        } else {
+            var dataIds = _.map(data, function(item) {return item.id});
+            order = shuffle(dataIds);
+        }
+
+        var answer; // set stored user answers or shuffled data
+        for (var i = 0; i < order.length; i++) {
+            answer = _.find(data, function(item) {return item.id == order[i]});
+
+            var newLI = jQuery("<li>");
+            newLI.addClass("ui-state-default");
+            newLI.attr("id", answer.id);
+            newLI.html('<div class="val-icon-sort"></div><div>'+answer.text+'</div>');
+            jQuery("#sortable{{id}}_{{questionNumber}}").append(newLI);
+
+            mappedData[answer.id] = answer.text;
+        }
+
+        PreparePositioningQuestionView('{{id}}_{{questionNumber}}');
+
+        TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}'] = function() {
+            var mappedRightAnswers = [];
+            var userAnswers = [];
+            var answerIDs = jQuery("#sortable{{id}}_{{questionNumber}}").sortable('toArray');
+            var score = 0;
+
+            var isPassed = true;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].id != answerIDs[i]) {
+                    isPassed = false;
+                }
+                mappedRightAnswers.push(data[i].text);
+                userAnswers.push(mappedData[answerIDs[i]]);
+            }
+            if (isPassed) score = ('{{score}}'.length > 0)?JSON.parse('{{score}}'):null;
+
+            var questionId = {{id}};
+            var questionNumber = {{questionNumber}};
+            recalculateFeedbackSlideHeight(questionId, questionNumber);
+
+            return {
+                rawLearnerResponse: answerIDs.join("[,]"),
+                learnerResponse: userAnswers.join("[,]"),
+                correctResponse: mappedRightAnswers.join("[,]"),
+                isPassed: isPassed,
+                score: score
+            }
+        };
+
+        /*{{#autoShowAnswer}}*/
+        TinCanCourseHelpers['positioningShowAnswers_{{id}}_{{questionNumber}}'] = function() {
+            var questionContainer = jQuery('#slideEntity_{{questionNumber}}');
+            questionContainer.siblings('.rj-element').hide();
+
+            var questionContent = questionContainer.find('.content{{id}}_{{questionNumber}}');
+            var userAnswers = questionContainer.find('.answers{{id}}_{{questionNumber}}');
+            questionContent.hide();
+            userAnswers.show();
+            var parent_el = questionContent.closest('.rj-element');
+            parent_el.siblings('.rj-element').hide();
+            var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}']();
+
+            var correct = answers.isPassed;
+            var rightAnswerCorrectness = userAnswers.find('#answerCorrectness{{id}}_{{questionNumber}} .js-right-answer-correctness');
+            var wrongAnswerCorrectness = userAnswers.find('#answerCorrectness{{id}}_{{questionNumber}} .js-wrong-answer-correctness');
+
+            if (correct) {
+                var rightAnswerCorrectnessText = rightAnswerCorrectness.html();
+                if (rightAnswerCorrectnessText == '') {
+                    rightAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsCorrectLabel']);
+                }
+                rightAnswerCorrectness.show();
+                wrongAnswerCorrectness.hide();
+
+                questionContainer.find('.js-result-icon').addClass('correct');
+            }
+            else {
+                var wrongAnswerCorrectnessText = wrongAnswerCorrectness.html();
+                if (wrongAnswerCorrectnessText == '') {
+                    wrongAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsIncorrectLabel']);
+                }
+                rightAnswerCorrectness.hide();
+                wrongAnswerCorrectness.show();
+
+                questionContainer.find('.js-result-icon').addClass('incorrect');
+            }
+
+            var learnerResponse = answers.learnerResponse;
+            var learnerResponseLines = learnerResponse.split("[,]");
+            userAnswers.find('.js-correct-answers').removeClass('hidden');
+
+            var correctPattern = answers.correctResponse;
+            var correctPatternLines = correctPattern.split("[,]");
+            for (var i = 0; i < learnerResponseLines.length; i++) {
+                var elem = jQuery("<div>").append(learnerResponseLines[i]);
+                var correctClass = learnerResponseLines[i] == correctPatternLines[i] ? 'correct' : 'incorrect';
+                var li = jQuery("<li>").addClass('ui-state-default ui-sortable-handle ' + correctClass);
+                var icon = jQuery("<div>").addClass('result-icon shift-left val-icon ' + correctClass);
+                jQuery("#usersSortable{{id}}_{{questionNumber}}").append(li.append(icon, elem));
+            }
+
+            moveAnswers({{questionNumber}});
+            doScale();
+
+            /*resfresh div for screen readers*/
+            refreshStatusDiv();
+        };
+        /*{{/autoShowAnswer}}*/
+
+        TinCanCourseModules['positioning_{{id}}_{{questionNumber}}'] = function(tincan) {
+            var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}']();
+
+            var taskID = 'task{{id}}_{{questionNumber}}';
+
+            if (answers.isPassed) {
+                tincan.sendStatement(GetQuestionAnswerStatement(
+                    taskID, unescapeElement('{{text}}'), '{{title}}', 'sequencing', answers.learnerResponse, answers.correctResponse, true, 100, answers.score));
+                return 1;
+            } else {
+                tincan.sendStatement(GetQuestionAnswerStatement(
+                    taskID, unescapeElement('{{text}}'), '{{title}}', 'sequencing', answers.learnerResponse, answers.correctResponse, false, 0, answers.score));
+                return 0;
+            }
+        }
+    });
+
+    TinCanCourseSetAnswers['positioning_{{id}}_{{questionNumber}}'] = function(userAnswer) {
+        var storedOrder = _.map(userAnswer.split("[,]"), function(item) {return parseInt(item)});
+
+        storedOrder.forEach(function(answerId) {
+            var box = jQuery("#sortable{{id}}_{{questionNumber}}");
+            var answerElem = jQuery("#" + answerId + ".ui-state-default", box);
+
+            jQuery(answerElem).appendTo(box);
+        })
+    };
+
+    TinCanCourseQuestionsAll['positioning_{{id}}_{{questionNumber}}'] = unescapeElement('{{title}}');
+    TinCanCourseQuestionsContent['positioning_{{id}}_{{questionNumber}}'] = unescapeElement('{{text}}');
+</script>

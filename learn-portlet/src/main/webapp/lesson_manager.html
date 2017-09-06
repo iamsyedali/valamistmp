@@ -1,0 +1,49 @@
+
+<div id="lessonManagerAppRegion"></div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="{{contextPath}}/js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+
+    jQueryValamis(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        /**
+         * Mobile IE10 hack
+         */
+        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            msViewportStyle.appendChild(
+                    document.createTextNode("@-ms-viewport{width:auto!important}")
+            );
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+        /** Mobile IE10 hack */
+
+
+
+        var permissionActionsLessonManager = {
+            LM_MODIFY: eval('{{permissionToModify}}'),
+            LM_SET_VISIBLE: eval('{{permissionSetVisible}}'),
+            LM_CAN_EXPORT: eval('{{permissionExport}}'),
+            LM_CAN_UPLOAD: eval('{{permissionUpload}}')
+        };
+
+        var lessonManagerOptions = {
+            resourceName: ['lessonManager', 'common'],
+            permissions: permissionActionsLessonManager,
+            app: lessonManager,
+            appOptions: {}
+        };
+
+        valamisApp.execute('subapp:start', lessonManagerOptions);
+
+    });
+
+</script>

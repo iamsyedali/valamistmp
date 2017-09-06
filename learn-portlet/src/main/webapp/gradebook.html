@@ -1,0 +1,36 @@
+
+<div id="gradebookAppRegion"></div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var permissionActionsGradebook = {
+            'Gradebook': {
+                VIEW_ALL: eval("{{viewAllPermission}}")
+            }
+        };
+
+        var gradebookOptions = {
+            resourceName: 'gradebook',
+            permissions: permissionActionsGradebook,
+            app: gradebook,
+            appOptions: {
+                tincanActor: '{{{tincanActor}}}',
+                endpointData: '{{{endpointData}}}',
+                canViewAll: eval('{{viewAllPermission}}'),
+                assignmentDeployed: false
+            }
+        };
+
+        valamisApp.execute('subapp:start', gradebookOptions);
+    });
+
+</script>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.2.0//EN" "http://www.liferay.com/dtd/liferay-display_6_2_0.dtd">
+<display>
+    <category name="Valamis Analytics">
+        <portlet id="Gradebook">Gradebook</portlet>
+        <portlet id="ValamisReport">Valamis report</portlet>
+        <portlet id="TinCanStatementViewer">Valamis TinCan Statement Viewer</portlet>
+        <portlet id="LearningTranscript">Learning Transcript</portlet>
+        <portlet id="LearningReport">Learning Pattern Report</portlet>
+        <portlet id="CertExpirationTracker">Сertificate expiration tracker</portlet>
+    </category>
+
+    <category name="Valamis Lesson tools">
+        <portlet id="SCORMApplication">SCORMApplication</portlet>
+        <portlet id="ContentManager">ContentManager</portlet>
+        <portlet id="PackageManager">PackageManager</portlet>
+        <portlet id="ValamisSlidesEditor">Lesson Studio</portlet>
+        <portlet id="AllCourses">All Courses</portlet>
+        <portlet id="AllCoursesStudent">Courses Browser</portlet>
+    </category>
+
+    <category name="Valamis Administration">
+        <portlet id="SCORMApplicationAdmin">SCORMApplicationAdmin</portlet>
+        <portlet id="SocialActivitiesTinCanMapper">Valamis TinCan Social Activity Mapper</portlet>
+        <portlet id="LRSToActivityMapper">Valamis LRS To Activity Mapper</portlet>
+        <portlet id="ContentProviderManager">Content Provider Manager</portlet>
+    </category>
+
+    <category name="Valamis Dashboard">
+        <portlet id="AchievedCertificates">Achieved Certificates</portlet>
+        <portlet id="LearningPaths">My Learning Paths</portlet>
+        <portlet id="MyLessons">Lessons</portlet>
+        <portlet id="ValamisActivities">Valamis Activities</portlet>
+        <portlet id="RecentLessons">Recent</portlet>
+        <portlet id="ValamisStudySummary">Valamis Study Summary</portlet>
+        <portlet id="MyCertificates">Learning Path Statistics</portlet>
+        <portlet id="MyCourses">Course Statistics</portlet>
+    </category>
+</display>

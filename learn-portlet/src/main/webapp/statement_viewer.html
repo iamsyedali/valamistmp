@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+<div class="container">
+    <div id="searchBox">
+        <table id="versionTable" class="versionTable">
+            <tr>
+                <td>
+                    <!-- Versions other than 1.0 not yet supported
+                    <label>TCAPI Version:</label> -->
+                    <input id="version" type="hidden" value="1.0.0"/>
+                    <!--
+                    <select id="version">
+                        <option value="1.0.0">1.0.0</option>
+                        <option value="0.95 + 0.9">0.95 + 0.9</option>
+                        <option value="0.95">0.95</option>
+                        <option value="0.9">0.9</option>
+                    </select>-->
+                </td>
+            </tr>
+        </table>
+        <table id="searchBoxTable" class="searchBoxTable" style="display: none;">
+            <tr>
+                <td><label>{{actorEmailLabel}}</label><input id="actorEmail" type="text" placeholder="{{actorEmailPlaceholderLabel}}"></td>
+                <td><label>{{verbIdLabel}}</label><input id="verb" type="text" placeholder="{{verbPlaceholderLabel}}"></td>
+                <td><label>{{activityIdLabel}}</label><input id="activityId" type="text" placeholder="{{activityIdPlaceholderLabel}}"></td>
+                <td><label>{{useContextLabel}}</label><input id="context" type="checkbox"></td>
+            </tr>
+        </table>
+        <table id="advancedSearchTable" class="searchBoxTable" style="display: none;">
+            <tr>
+                <td><label>{{sinceLabel}}</label><input id="since" type="text" placeholder="YYYY-MM-ddTHH:mm:ss.SSSZ"></td>
+                <td><label>{{untilLabel}}</label><input id="until" type="text" placeholder="YYYY-MM-ddTHH:mm:ss.SSSZ"></td>
+                <td><label>{{registrationLabel}}</label><input id="registration" type="text"
+                                                      placeholder="{{registrationPlaceholderLabel}}"></td>
+                <td><label>{{authoritativeOnlyLabel}}</label><input id="authoritative" type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><label>{{actorJsonLabel}}</label><input id="actorJson" type="text" placeholder="{{actorJsonPlaceholderLabel}}"></td>
+                <td><label>{{objectJsonLabel}}</label><input id="objectJson" type="text" placeholder="{{objectJsonPlaceholderLabel}}"></td>
+                <td><label>{{instructorJsonLabel}}</label><input id="instructorJson" type="text" placeholder="{{instructorJsonPlaceholderLabel}}">
+                </td>
+                <td><label>{{sparseLabel}}</label><input id="sparse" type="checkbox"></td>
+            </tr>
+        </table>
+        <div id="searchBoxTable1" class="searchBoxTable">
+            <!--<tr>-->
+                <div>
+                    <label>{{agentPropertyLabel}}</label>
+                    <select id="agentProperty">
+                        <option value="account">{{accountAgentPropertyLabel}}</option>
+                        <option value="mbox">{{mboxAgentPropertyLabel}}</option>
+                    </select>
+                </div>
+                <div><label>{{agentValueLabel}}</label><input id="agentValue" type="text" placeholder="{{agentValuePlaceholderLabel}}"></div>
+                <div><label>{{verbIdLabel}}</label><input id="verb1" type="text" placeholder="{{verbPlaceholderLabel}}"></div>
+                <div class="lastDiv"><label>{{activityIdLabel}}</label><input id="activityId1" type="text" placeholder="{{activityIdPlaceholderLabel}}"></div>
+            <!--</tr>-->
+        </div>
+        <div id="advancedSearchTable1" class="searchBoxTable" style="display: none;">
+            <!--<tr>-->
+            <div><label>{{formatLabel}}</label><select id="format">
+                    <option value="">{{defaultFormatLabel}}</option>
+                    <option value="exact">{{exactFormatLabel}}</option>
+                    <option value="ids">{{idsFormatLabel}}</option>
+                    <option value="canonical">{{canonicalFormatLabel}}</option>
+            </select></div>
+            <div><label>{{sinceLabel}}</label><input id="since1" type="text" placeholder="YYYY-MM-ddTHH:mm:ss.SSSZ"></div>
+            <div><label>{{untilLabel}}</label><input id="until1" type="text" placeholder="YYYY-MM-ddTHH:mm:ss.SSSZ"></div>
+            <div class="lastDiv"><label>{{registrationLabel}}</label><input id="registration1" type="text" placeholder="{{registrationPlaceholderLabel}}"></div>
+            <!--</tr>-->
+            <div class="lastDiv"><label class="labelsRelated">{{relatedAgentsLabel}}</label><input id="relatedAgents" type="checkbox"></div>
+            <div class="lastDiv"><label class="labelsRelated">{{relatedActivitiesLabel}}</label><input id="relatedActivities" type="checkbox"></div>
+                <!--<td><label>Attachments</label><input id="attachments" type="checkbox"></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+        </div>
+
+        <div id="TCAPIQuery" style="display:none">
+            <label for="TCAPIQueryText">{{tcapiQueryLabel}}</label>
+            <textarea readonly="true" id="TCAPIQueryText"></textarea>
+        </div>
+
+        <button id="refreshStatements">{{refreshLabel}}</button>
+        <button id="showAdvancedOptions">{{showAdvancedOpitons}}</button>
+        <button id="showQuery">{{showTcapiQueryLabel}}</button>
+    </div>
+    <div>
+        {{importCSVLabel}}
+        <input id="exportCount" type="text" placeholder="all" />
+        <button id="export">{{exportButtonLabel}}</button>
+        <button id="cancel" style="display: none;">{{cancelButtonLabel}}</button>
+        <div id='exportLoading' class="loading-container" style="display: none;"></div>
+        <a href="" id="linkCSV" style="display: none;">{{downloadCSVLabel}}</a>
+        <a href="" id="linkJSON"  style="display: none;">{{downloadJSONLabel}}</a>
+        <span id="status"></span>
+    </div>
+    <br/>
+    <div id='theStatements'></div>
+    <div id='statementsLoading' class="loading-container">
+    </div>
+    <button id='showAllStatements'>{{moreLabel}}</button>
+    <input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+</div>
+
+<script type="text/javascript">
+    function Config() {
+        "use strict";
+    }
+    var tincanAccountHomePage = '{{{accountHomePage}}}';
+
+    TincanHelper.SetLRS({{{endpointData}}});
+    Config.endpoint = TincanHelper.getEndpoint();
+    Config.authLine = TincanHelper.getAuth();
+    Config.actor = TincanHelper.getActor();
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+
+        TC_VIEWER = new TINCAN.Viewer();
+        TC_VIEWER.pageInitialize();
+        TC_VIEWER.searchStatements();
+    });
+
+    window.onbeforeunload = function () {
+        jQueryValamis("#cancel").trigger( "click" );
+    };
+</script>
+</body>
+</html>

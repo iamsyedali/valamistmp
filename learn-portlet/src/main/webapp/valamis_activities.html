@@ -1,0 +1,35 @@
+
+<div id="valamisActivitiesAppRegion"></div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+    Valamis.currentUserId = parseInt("{{userID}}");
+
+    var resourceURL = "{{{resourceURL}}}";
+    var activitiesCount = {{activitiesCount}};
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var permissionActionsValamisActivities = {
+        };
+
+        var activitiesOptions = {
+            resourceName: 'dashboard',
+            permissions: permissionActionsValamisActivities,
+            app: valamisActivities,
+            appOptions: {
+                activitiesCount: activitiesCount,
+                resourceURL: resourceURL
+            }
+        };
+
+        valamisApp.execute('subapp:start', activitiesOptions);
+    });
+
+</script>

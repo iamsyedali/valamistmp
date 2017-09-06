@@ -1,0 +1,35 @@
+
+<div id="coursesManagerAppRegion"></div>
+
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    CKEDITOR_BASEPATH = "{{contextPath}}/js/vendor/ckeditor/";
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(function () {
+
+        if (!valamisApp.started) { valamisApp.start(); }
+
+        var allCoursesPermission = {
+            'ALLCOURSE': {
+                'CREATE_COURSE': eval('{{canCreateNewCourse}}'),
+                'MODIFY_ACTION': eval('{{canEditCourse}}')
+            }
+        };
+
+        var allCoursesOptions = {
+            language: '{{language}}',
+            resourceName: ['allCourses', 'common'],
+            permissions: allCoursesPermission,
+            app: allCourses,
+            appOptions: { editor: true }
+        };
+
+        valamisApp.execute('subapp:start', allCoursesOptions);
+
+    });
+
+</script>

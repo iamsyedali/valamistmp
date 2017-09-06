@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en" class="decks fullscreen loaded ua-phantomjs reveal-viewport theme-font-montserrat theme-color-white-blue">
+<head>
+    <meta charset="utf-8">
+
+    <title>{{title}}</title>
+
+    <meta http-equiv="last-modified" content='{{modifiedDate}}' />
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <script>
+        function onYouTubeIframeAPIReady() {
+            window.youtubeIframeApiReady = true;
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api?onload=onYouTubeIframeAPIReady"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,500' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <style>
+        .verticalSeparator {
+            margin-right: 50px !important;
+        }
+
+        .answers ul {
+            list-style-type: none;
+        }
+
+        .answers li {
+            background: inherit;
+        }
+
+        .answerContainer li {
+            background: inherit;
+        }
+        .icheckbox_polaris, .icheckbox_polaris.checked {
+            vertical-align: middle !important;
+        }
+        .valamis,
+        .reveal-wrapper { height: 100%; }
+        .reveal .progress { pointer-events: none }
+        .reveal>.backgrounds { overflow: hidden }
+        .reveal .slides [hidden] { max-height: 100%; overflow: hidden; padding: 0; }
+    </style>
+
+    <script type="text/html" id="revealTemplate">
+        <div class="slides">
+            <section>
+                <section></section>
+            </section>
+        </div>
+    </script>
+    <script type="text/html" id="genericElementTemplate">
+        <div class="item-content shift-left js-item-content"></div>
+    </script>
+    <script type="text/html" id="startConfirmationView">
+        <div id="start-package-confirmation">
+            <div class="confirmation-question js-localized-label" data-value="confirmationQuestionLabel"></div>
+            <div id="button-toolbar">
+                <button class="js-confirmation btn-confirmation js-localized-label" data-value="confirmButtonLabel"></button>
+                <button class="js-decline btn-decline js-localized-label" data-value="declineButtonLabel"></button>
+            </div>
+        </div>
+    </script>
+
+{{#isSlideJsonAvailable}}
+<script>
+    var slidesJson = {{{slidesJson}}};
+    var questionsJson = {{{questionsJson}}};
+    var plaintextsJson = {{{plaintextsJson}}};
+    var randomQuestionJson = {{{randomQuestionJson}}};
+    var randomPlaintextJson = {{{randomPlaintextJson}}};
+    //TODO: get from back-end
+    var devicesJson = [
+        { id: 3, name: 'phone', minWidth: 375, maxWidth: 767, minHeight: 667 },
+        { id: 2, name: 'tablet', minWidth: 768, maxWidth: 1023, minHeight: 1024 },
+        { id: 1, name: 'desktop', minWidth: 1024, maxWidth: 0, minHeight: 768 }
+    ];
+</script>
+{{/isSlideJsonAvailable}}
+
+    {{#includeVendorFiles}}
+    <script src="{{{.}}}"></script>
+    {{/includeVendorFiles}}
+    {{#includeFiles}}
+    <script src="{{{.}}}"></script>
+    {{/includeFiles}}
+    {{#includeCommonFiles}}
+    <script src="{{{.}}}"></script>
+    {{/includeCommonFiles}}
+    {{#includeCSS}}
+    <link rel="stylesheet" href="{{{.}}}">
+    {{/includeCSS}}
+
+</head>
+
+<body onunload="onUnload()" style="overflow-y: auto;">
+<div class="valamis valamis-slides reveal-scroll-wrapper">
+    <div class="reveal-scroll-container">
+        <div class="reveal-wrapper">
+            {{^isSlideJsonAvailable}}
+            <div class="reveal">
+                <!-- all questions here before start, needed questions will be moved to displayed slides-->
+                {{#isRandomized}}
+                <div style="display: none;" class="sectionBank" >
+                    {{{sections}}}
+                </div>
+                <!-- Any section element inside of this container is displayed as a slide -->
+                <div class="slides">
+
+                </div>
+                {{/isRandomized}}
+                {{^isRandomized}}
+                <!-- Any section element inside of this container is displayed as a slide -->
+                <div class="slides">
+                    {{{sections}}}
+                </div>
+                {{/isRandomized}}
+            </div>
+            {{/isSlideJsonAvailable}}
+        </div>
+    </div>
+    <div id="show-package-duration" class = "active">
+        <span class="val-icon-clock active js-toggle-timer"></span>
+        <span id="packageDuration"></span>
+    </div>
+</div>
+{{#isRandomized}}
+
+{{#questionMarkupTemplates}}
+    {{{.}}}
+{{/questionMarkupTemplates}}
+<script>
+    (function(){
+        var initProperties = {{#initProperties}} {{{initProperties}}} {{/initProperties}} {{^initProperties}} {} {{/initProperties}};
+
+        //get all sections from sectionBank
+        var sections = $(".sectionBank>section");
+
+        //mix sections if needed
+        if (initProperties && initProperties.randomOrdering) {
+            sections = sections.sort(function (a, b) {
+                return Math.random() >= 0.5;
+            });
+            if (initProperties.questionsCount && initProperties.questionsCount > 0) {
+                sections = sections.slice(0, initProperties.questionsCount);
+            }
+        }
+
+        //append mixed sections to slides
+        $(".slides").append(sections);
+    })();
+</script>
+{{/isRandomized}}
+
+<script>
+
+    ROOT_ACTIVITY_ID = '{{rootActivityId}}';
+    ROOT_ACTIVITY_TITLE = unescapeElement('{{title}}');
+    ROOT_ACTIVITY_DESCRIPTION = unescapeElement('{{description}}');
+    VERSION = '{{version}}';
+    SCORE_LIMIT = {{scoreLimit}};
+    CAN_PAUSE = {{canPause}};
+    DURATION = {{duration}};
+    PLAYER_TITLE = '{{playerTitle}}';
+    ONE_ANSWER_ATTEMPT = {{oneAnswerAttempt}};
+    var currentTinCanState = undefined;
+
+    var slidesViews = [];
+
+    /*
+     * Function to format seconds to a proper time string (HH:mm:ss)
+     */
+    function toTimeString(d) {
+        d = Number(d);
+        var h = Math.floor(d / 3600);
+        var m = Math.floor(d % 3600 / 60);
+        var s = Math.floor(d % 3600 % 60);
+        return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+    }
+
+    function onUnload() {
+
+        {{#isSlideJsonAvailable}}
+
+        if(slidesApp)
+            _.each(slidesApp.playerCheckIntervals, function(interval) {
+                clearInterval(interval);
+            });
+
+        {{/isSlideJsonAvailable}}
+
+        if (CAN_PAUSE && !getLessonPagesStatistic().fullCompleted)
+            packageSuspend(currentTinCanState);
+        else
+            packageEnd(currentTinCanState);
+    }
+
+    function baseScale(divA, divB, centerY) {
+        var maxWidth = divA.width();
+        var maxHeight = divA.height();
+
+        var width = divB.outerWidth();
+        var height = divB.outerHeight();
+        var scale;
+
+        // early exit
+        if(width <= maxWidth && height <= maxHeight) {
+            divB.css({
+                '-webkit-transform': '',
+                '-ms-transform': '',
+                'transform': ''
+            });
+            if (centerY) {
+                divB.css({
+                    '-webkit-transform-origin-y': '50%',
+                    '-ms-transform-origin-y': '50%',
+                    'transform-origin-y': '50%'
+                });
+            }
+            return;
+        }
+        {{#isSlideJsonAvailable}}
+        scale = Math.min(maxWidth/width, maxHeight/height);
+
+        divB.css({
+            '-webkit-transform': 'scale(' + scale + ')',
+            '-ms-transform': 'scale(' + scale + ')',
+            'transform': 'scale(' + scale + ')'
+        });
+        {{/isSlideJsonAvailable}}
+        if (centerY) {
+            divB.css({
+                '-webkit-transform-origin-y': 0,
+                '-ms-transform-origin-y': 0,
+                'transform-origin-y': 0
+            });
+        }
+    }
+
+    function doScaleOnResize() {
+        baseScale($(window), $('.slides'), false);
+    }
+
+    function doScale(slide) {
+        slide = slide || Reveal.getCurrentSlide();
+        baseScale($('.slides'), $(slide), true);
+    }
+
+    function handleBackground(currentSlide){
+
+        //move background to foreground if necessary
+        if(currentSlide.getAttribute('data-just-background') == 'true'){
+            document.querySelector('.reveal>.backgrounds').style.zIndex = 1;
+//                var src = event.currentSlide.getAttribute('data-background-iframe');
+//                if(src) {
+//                    var bg = document.querySelectorAll('.reveal>.backgrounds>.slide-background.future iframe[src="'+src+'"]');
+//                    if (bg.length > 0) bg[0].contentWindow.focus();
+//                }
+        }else{
+            document.querySelector('.reveal>.backgrounds').style.zIndex = "";
+        }
+    }
+
+    function ltiSupportHandle($slide) {
+        if(top.ltiSupport) {
+            top.ltiSupport.handle($slide);
+        }
+    }
+
+    function toggleNavigation(indexh, indexv) {
+        {{#isSlideJsonAvailable}}
+            if(top.navigationProxy != null){
+                top.navigationProxy.toggle2D(indexh, indexv);
+            }
+        {{/isSlideJsonAvailable}}
+        {{^isSlideJsonAvailable}}
+            if(top.navigationProxy != null){
+                top.navigationProxy.toggle1D(indexh);
+            }
+        {{/isSlideJsonAvailable}}
+    }
+
+    function revealAttachEvents(eventName){
+
+        switch(eventName){
+            case "ready":
+                Reveal.addEventListener( 'ready', function( event ) {
+                    currentTinCanState = $(event.currentSlide).data('state');
+                    var currentSlide = document.querySelector(".slides>section"),
+                        currentSlideId = $(event.currentSlide).attr('id');
+                    handleBackground(currentSlide);
+                    slidesViews.push(currentSlideId);
+                    revealAttachEvents('slidechanged');
+
+                    ltiSupportHandle($(event.currentSlide));
+                    toggleNavigation(event.indexh, event.indexv);
+                    checkIsLessonSummary();
+
+                    setTranslations(jQuery('.slides'));
+                });
+            break;
+            case "slidechanged":
+
+                Reveal.addEventListener( 'slidechanged', function( event ) {
+                    var $currentSlide = $(event.currentSlide);
+                    var $previousSlide = $(event.previousSlide);
+                    if (ONE_ANSWER_ATTEMPT) disableQuestion(event.currentSlide);
+                    var prevStateID = $previousSlide.data('state'),
+                        currentSlideId = $currentSlide.attr('id');
+                    if (prevStateID) {
+                        ProcessTinCan(prevStateID);
+                    }
+                    currentTinCanState = $currentSlide.data('state');
+                    checkIsLessonSummary();
+
+                    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+
+                    // pause background video when the slide leaved
+                    if(event.previousSlide.getAttribute('data-just-background') == 'true'){
+                        var el = document.querySelector('.reveal>.backgrounds>.slide-background.present iframe'); //.present because bg changes after event runs
+
+                        if (el){
+                            if(el.src.indexOf("youtube.com/embed/") > -1){
+                                if (!el.hasAttribute('data-ignore') && typeof el.contentWindow.postMessage === 'function') {
+                                    el.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                                }
+                            }
+                            if(el.src.indexOf("player.vimeo.com") > -1){
+                                if(!el.hasAttribute( 'data-ignore' ) && typeof el.contentWindow.postMessage === 'function' ) {
+                                    el.contentWindow.postMessage( '{"method":"pause"}', '*' );
+                                }
+                            } else {
+                                var video = el.contentDocument.querySelector('video');
+                                if (video) video.pause();
+                            }
+                        }
+                    }
+
+                    handleBackground(event.currentSlide);
+
+                    toggleNavigation(event.indexh, event.indexv);
+
+                    ltiSupportHandle($currentSlide);
+
+                    {{#isSlideJsonAvailable}}
+                    if(slidesApp && !slidesApp.initializing) {
+                        slidesApp.activeSlideModel = slidesApp.getSlideModel(parseInt(currentSlideId.replace('slide_', '')));
+                        var slideId = $previousSlide.attr('id');
+                        var slideTitle = $previousSlide.attr('title');
+
+                        onPackageSlideEnd(slideId, slideTitle);
+                    }
+                    {{/isSlideJsonAvailable}}
+
+                    if( $.inArray( currentSlideId, slidesViews ) == -1 ){
+                        slidesViews.push(currentSlideId);
+                    }
+
+                });
+            break;
+        }
+    }
+
+    $(document).ready(function(){
+
+        {{^isSlideJsonAvailable}}
+            Reveal.initialize(defaultParams);
+        {{/isSlideJsonAvailable}}
+        {{#isSlideJsonAvailable}}
+            slidesApp.start();
+            Reveal.sync();
+        {{/isSlideJsonAvailable}}
+
+        revealAttachEvents('ready');
+        var showDuration = (DURATION || 0);
+        var timer = jQuery('#packageDuration');
+        if (showDuration > 0){
+            var duration = DURATION * 60;
+            startTimer(duration, timer);
+            jQuery('#show-package-duration').show();
+        }
+        else {
+            jQuery('#show-package-duration').hide();
+        }
+
+        jQuery('.js-toggle-timer').click(function(){
+            timer.toggle();
+            var isVisible = timer.is(":visible");
+            jQuery('#show-package-duration').toggleClass('active', isVisible);
+            jQuery('.val-icon-clock').toggleClass('active', isVisible);
+        });
+        packageBegin();
+    });
+
+    function GetExperiencedStatement(activityID, title){
+        var verb, object, category;
+        {{#isSlideJsonAvailable}}
+            var prevSlide = slidesApp.getSlideModel(parseInt(activityID.replace('slide_', '')));
+            verb = prevSlide.get('statementVerb') || '',
+            object = prevSlide.get('statementObject') || '',
+            category = prevSlide.get('statementCategoryId') || '';
+            var verbUri = verb.substr(0, verb.lastIndexOf('/')),
+            verbName = verb.substr(verb.lastIndexOf('/') + 1);
+        {{/isSlideJsonAvailable}}
+        var stmt = {
+              actor: tincan.actor,
+              verb: verb ? {
+                id: verbUri,
+                display: {
+                    'en-US': verbName
+                }
+            } : {
+                  "id": "http://adlnet.gov/expapi/verbs/experienced",
+                  "display": {
+                      "en-US": "experienced"
+                  }
+              },
+
+            object: {
+                id: ROOT_ACTIVITY_ID +'/' + activityID,
+                definition: {
+                    type: 'http://adlnet.gov/expapi/activities/module',
+                    name: {
+                        'en-US': object || title
+                    }
+                }
+            },
+            context: getContext(ROOT_ACTIVITY_ID, category)
+        };
+
+        return stmt;
+    }
+
+
+</script>
+<script>
+    {{#isSlideJsonAvailable}}
+        if(top.navigationProxy != null){
+            top.navigationProxy.display2DNavigation({{{slidesJson}}});
+        }
+    {{/isSlideJsonAvailable}}
+    {{^isSlideJsonAvailable}}
+        if(top.navigationProxy != null){
+            var serializedQuestions = {{{serializedQuestionData}}};
+            var isRandomized = {{isRandomized}};
+
+            if(isRandomized){
+                var randomizedIndexes = _.map($(".slides section"),function(x){ return parseInt($(x).data('state').split('_')[1]); });
+
+                top.navigationProxy.display1DRandomizedNavigation(randomizedIndexes, serializedQuestions);
+            } else {
+                top.navigationProxy.display1DNavigation(serializedQuestions);
+            }
+        }
+    {{/isSlideJsonAvailable}}
+</script>
+{{#questionMarkupTemplates}}
+{{{.}}}
+{{/questionMarkupTemplates}}
+{{#questionScripts}}
+{{{.}}}
+{{/questionScripts}}
+{{{lessonSummaryScript}}}
+
+</body>
+</html>

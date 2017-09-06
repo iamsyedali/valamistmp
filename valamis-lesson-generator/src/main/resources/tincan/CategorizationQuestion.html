@@ -1,0 +1,273 @@
+<section data-state="categorization_{{id}}_{{questionNumber}}" id="task{{id}}_{{questionNumber}}">
+    <div class="categorization-question">
+        <div class="valamis-question js-valamis-question content{{id}}_{{questionNumber}}">
+            <div class="question-text">{{{text}}}</div>
+
+            <div class="div-table answers-options js-answers-options">
+                <div class="div-col shift-left">
+                    {{#rowsCategoriesText}}
+                    <div class="div-row">
+                        {{#.}}
+                        <div class="div-col phone-row categorizationAnswerBoxes{{id}}_{{questionNumber}}">
+                            <div class="category-item js-categorization-answer-box">
+                                <div class="category-text js-category-text">{{{.}}}</div>
+                                <ul class="js-answer-container container{{id}}_{{questionNumber}}"></ul>
+                            </div>
+                        </div>
+                        {{/.}}
+                    </div>
+                    {{/rowsCategoriesText}}
+                </div>
+                <div class="div-col shift-right">
+                    <ul class="js-answer-container-source answer-container-source container{{id}}_{{questionNumber}}">
+                        {{#answersText}}
+                        <li id="categorizationAnswer{{answerId}}" class="categorization-answer-item js-acceptable js-answer-item categorization{{id}}_{{questionNumber}}">
+                            <span class="invisible-font">Matching element</span>
+                            <span class="js-answer-text">{{{matchingText}}}</span>
+                            {{#autoShowAnswer}}
+                            <div class="val-icon"></div>
+                            {{/autoShowAnswer}}
+                        </li>
+                        {{/answersText}}
+                    </ul>
+                </div>
+            </div>
+
+            {{#autoShowAnswer}}
+            <button class="button big check-answer-button shift-left js-check-answer-button js-localized-label" data-value="checkLabel"
+                    onclick="TinCanCourseHelpers['categorizationShowAnswers_{{id}}_{{questionNumber}}']()">
+            </button>
+            {{/autoShowAnswer}}
+        </div>
+
+        {{#autoShowAnswer}}
+        <div class="question-feedback js-question-feedback">
+            <div class="result-icon shift-left val-icon js-result-icon"></div>
+            <div id="answerCorrectness{{id}}_{{questionNumber}}" class="result-label">
+                <div class="js-right-answer-correctness">{{{rightAnswerText}}}</div>
+                <div class="js-wrong-answer-correctness">{{{wrongAnswerText}}}</div>
+            </div>
+
+            <div class="decorative-line">
+                <div class="choice-line"></div>
+            </div>
+
+            {{#hasExplanation}}
+            <div class="js-localized-label invisible-font" data-value="explanationLabel"></div>
+            <div id="explanation" class="question-explanation js-question-explanation">{{{explanation}}}</div>
+            {{/hasExplanation}}
+        </div>
+        {{/autoShowAnswer}}
+    </div>
+</section>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        PrepareCategorizationQuestionView('{{id}}_{{questionNumber}}');
+
+        /*{{#autoShowAnswer}}*/
+        TinCanCourseHelpers['categorizationShowAnswers_{{id}}_{{questionNumber}}'] = function () {
+            var showCorrectness = true;
+            var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}'](showCorrectness);
+
+            var questionContainer = jQuery('#slideEntity_{{questionNumber}}');
+            questionContainer.siblings('.rj-element').hide();
+            questionContainer.find('.js-check-answer-button').hide();
+            questionContainer.find('.js-answer-item').draggable('disable');
+
+            var questionFeedback = questionContainer.find('.js-question-feedback');
+            questionFeedback.show();
+
+            var correct = answers.isPassed;
+            var rightAnswerCorrectness = questionFeedback.find('#answerCorrectness{{id}}_{{questionNumber}} .js-right-answer-correctness');
+            var wrongAnswerCorrectness = questionFeedback.find('#answerCorrectness{{id}}_{{questionNumber}} .js-wrong-answer-correctness');
+
+            if (correct) {
+                var rightAnswerCorrectnessText = rightAnswerCorrectness.html();
+                if (rightAnswerCorrectnessText == '') {
+                    rightAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsCorrectLabel']);
+                }
+                rightAnswerCorrectness.show();
+                wrongAnswerCorrectness.hide();
+
+                questionContainer.find('.js-result-icon').addClass('correct');
+            }
+            else {
+                var wrongAnswerCorrectnessText = wrongAnswerCorrectness.html();
+                if (wrongAnswerCorrectnessText == '') {
+                    wrongAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsIncorrectLabel']);
+                }
+                rightAnswerCorrectness.hide();
+                wrongAnswerCorrectness.show();
+
+                questionContainer.find('.js-result-icon').addClass('incorrect');
+            }
+
+            var questionId = {{id}};
+            var questionNumber = {{questionNumber}};
+            recalculateFeedbackSlideHeight(questionId, questionNumber);
+
+            /*resfresh div for screen readers*/
+            refreshStatusDiv();
+        };
+
+        /*{{/autoShowAnswer}}*/
+
+        TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}'] = function (showCorrectness) {
+            var dataToCompare = answersToJSON('{{answers}}');
+
+            var rawLearnerResponse = [],
+                    patterAnswers = [],
+                    hasScore = false,
+                    score = 0,
+                    learnerResponse = [],
+                    isPassed = true;
+
+            var groupedAnswers = {},
+                    groupedResponse = {};
+
+            groupedAnswers = collectCorrectAnswers();
+
+            var boxesContainer = jQuery('.categorizationAnswerBoxes{{id}}_{{questionNumber}}');
+            boxesContainer.find('.js-categorization-answer-box').each(function (index, element) {
+                var el = jQuery(element);
+                var groupHtml = htmlDecode(el.find('.js-category-text').get(0).innerHTML.trim());
+                var answers = el.find('.js-answer-item');
+
+                answers.each(function (answerIndex, answerElement) {
+                    var answerElement = jQuery(answerElement);
+                    var answerId = answerElement.attr('id').replace('categorizationAnswer', '');
+                    rawLearnerResponse.push([index, answerId].join('[.]'));
+
+                    var answerHtml = htmlDecode(answerElement.find('> .js-answer-text').get(0).innerHTML.trim());
+
+                    learnerResponse.push([groupHtml, answerHtml].join("[.]"));
+                    var correctnessAnswer = isCorrectnessAnswerItem([groupHtml, answerHtml].join('[.]'));
+
+                    var className = '';
+                    if (correctnessAnswer) {
+                        className = 'correct-answer';
+                    }
+                    else {
+                        isPassed = false;
+                        className = 'incorrect-answer';
+                    }
+                    if (showCorrectness) {
+                        answerElement.addClass(className);
+                    }
+
+                    if (!groupedResponse.hasOwnProperty(groupHtml)) {
+                        groupedResponse[groupHtml] = [];
+                    }
+                    groupedResponse[groupHtml].push(answerHtml);
+                });
+            });
+
+            if (isPassed) {
+                isCorrectAnswerForQuestion();
+            }
+
+            function collectCorrectAnswers() {
+                var collectedAnswers = {};
+                var group, answerItem, cmpString;
+                for (var i = 0; i < dataToCompare.length; i++) {
+                    group = htmlDecode(dataToCompare[i].text.trim());
+                    if (!collectedAnswers.hasOwnProperty(group)) {
+                        collectedAnswers[group] = [];
+                    }
+                    answerItem = htmlDecode(dataToCompare[i].matchingText.trim());
+                    collectedAnswers[group].push(answerItem);
+
+                    cmpString = group + '[.]' + answerItem;
+                    patterAnswers.push(cmpString);
+                }
+
+                return collectedAnswers;
+            }
+
+            function isCorrectnessAnswerItem(userAnswer) {
+                for (var i = 0; i < dataToCompare.length; i++) {
+
+                    if (dataToCompare[i].matchingText == null || dataToCompare[i].matchingText == '') continue; // We are trying to compare to an empty category -> always true
+
+                    var cmpString = dataToCompare[i].text.trim() + '[.]' + dataToCompare[i].matchingText.trim();
+                    var found = false;
+                    if (cmpString.toLowerCase() == userAnswer.toLowerCase() ||
+                            htmlDecode(cmpString).toLowerCase() == userAnswer.toLowerCase()) {
+                        found = true;
+                        break;
+                    }
+                }
+                return found;
+            }
+
+            function isCorrectAnswerForQuestion () {
+                for (var key in groupedAnswers) {
+                    var userResponses = (groupedResponse.hasOwnProperty(key)) ? groupedResponse[key] : [];
+                    var correctResponses = (groupedAnswers.hasOwnProperty(key)) ? groupedAnswers[key] : [];
+                    var correctnessQuestion = true;
+
+                    for (var i = 0; i < correctResponses.length; i++) {
+                        var correct = correctResponses[i];
+                        correctnessQuestion = false;
+                        for (var j = 0; j < userResponses.length; j++) {
+                            var user = userResponses[j];
+                            if (htmlDecode(user) === htmlDecode(correct)) {
+                                correctnessQuestion = true;
+                                if (correctResponses[i].score) {
+                                    hasScore = true;
+                                    score += correctResponses[i].score;
+                                }
+                                break;
+                            }
+                        }
+                        if (!correctnessQuestion) {
+                            isPassed = false;
+                        }
+                    }
+                }
+            }
+
+            return {
+                learnerResponse: learnerResponse.join('[,]'),
+                correctResponse: patterAnswers.join('[,]'),
+                rawLearnerResponse: rawLearnerResponse.join('[,]'),
+                isPassed: isPassed,
+                score: (hasScore) ? score : null
+            }
+        };
+
+        TinCanCourseModules['categorization_{{id}}_{{questionNumber}}'] = function (tincan) {
+            var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}']();
+
+            var taskID = 'task{{id}}_{{questionNumber}}';
+
+            if (answers.isPassed) {
+                tincan.sendStatement(GetQuestionAnswerStatement(
+                    taskID, unescapeElement('{{text}}'), '{{title}}', 'matching', answers.learnerResponse, answers.correctResponse, true, 100, answers.score));
+
+                return 1;
+            } else {
+                tincan.sendStatement(GetQuestionAnswerStatement(
+                    taskID, unescapeElement('{{text}}'), '{{title}}', 'matching', answers.learnerResponse, answers.correctResponse, false, 0, answers.score));
+                return 0;
+            }
+        }
+    });
+
+    TinCanCourseSetAnswers['categorization_{{id}}_{{questionNumber}}'] = function(userAnswer) {
+        userAnswer.split('[,]').forEach(function(item) {
+            var boxIndex = item.split('[.]')[0];
+            var answerId = item.split('[.]')[1];
+
+            var box = jQuery('.js-answer-container', jQuery('.categorizationAnswerBoxes{{id}}_{{questionNumber}}')[boxIndex]);
+            var answerElem = jQuery('.container{{id}}_{{questionNumber}} #categorizationAnswer' + answerId + '.js-answer-item');
+
+            jQuery(answerElem).appendTo(box);
+        });
+    };
+
+    TinCanCourseQuestionsAll['categorization_{{id}}_{{questionNumber}}'] = unescapeElement('{{title}}');
+    TinCanCourseQuestionsContent['categorization_{{id}}_{{questionNumber}}'] = unescapeElement('{{text}}');
+
+</script>

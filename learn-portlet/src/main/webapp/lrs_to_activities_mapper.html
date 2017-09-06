@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="valamisLrsToActivityRules">
+    <div class="js-lrs-to-activity-controls"></div>
+    <table class="val-table">
+        <thead>
+        <tr>
+            <th>{{ruleName}}</th>
+            <th>{{tinCanVerb}}</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody class="js-social-activities-mapper-data"></tbody>
+    </table>
+</div>
+
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script>
+    var jQueryLRS2ActivityMapper = jQuery.noConflict();
+
+    jQueryLRS2ActivityMapper(function () {
+        Backbone.emulateJSON = true;
+        Backbone.ajax = window.LearnAjax.ajax;
+        Utils.loadLanguage('lrsToActivitiesMapper', onLRS2ActivityLanguageLoad);
+    });
+
+    function onLRS2ActivityLanguageLoad(lang) {
+        LRS2ActivityMapperApp.start({
+            language: lang,
+            siteID: Utils.getCourseId()
+        });
+    }
+</script>
+</body>
+</html>

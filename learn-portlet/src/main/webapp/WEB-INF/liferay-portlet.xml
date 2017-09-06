@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN"
+        "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
+<liferay-portlet-app>
+
+    <portlet>
+        <portlet-name>SCORMApplication</portlet-name>
+        <icon>/img/logo.png</icon>
+        <friendly-url-mapping>learn-portlet</friendly-url-mapping>
+        <social-activity-interpreter-class>com.arcusys.valamis.web.interpreter.StatementActivityInterpreter</social-activity-interpreter-class>
+        <social-activity-interpreter-class>com.arcusys.valamis.web.interpreter.PackageActivityInterpreterLF</social-activity-interpreter-class>
+        <social-activity-interpreter-class>com.arcusys.valamis.web.interpreter.PackageActivityInterpreterSO</social-activity-interpreter-class>
+        <user-notification-definitions>notifications/lessons/definitions.xml</user-notification-definitions>
+        <user-notification-handler-class>com.arcusys.valamis.web.notification.LessonNotificationHandler</user-notification-handler-class>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <instanceable>false</instanceable>
+        <private-session-attributes>false</private-session-attributes>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/loadingSpinner.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/sortable.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/tincan-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/oauth-signature.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/lesson-viewer/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/viewsContent.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/viewsTincanContent.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/viewsScormContent.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/LTISupport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/navigation.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/TincanNavigation.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer/ScormNavigation.js</header-portlet-javascript>
+
+        <!-- lesson viewer settings -->
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/selectLesson.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer-settings/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer-settings/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-viewer-settings/views.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/TincanHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/tincan/SCORMtoTinCanWrapper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/tincan/SCORMtoTinCanHandler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/validator.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/dataModel.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/rteBase.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/rteData.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/dataModel12.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/rteBase12.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lms/rteData12.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>SCORMApplicationAdmin</portlet-name>
+        <icon>/img/logo.png</icon>
+        <indexer-class>com.arcusys.valamis.web.service.LessonIndexer</indexer-class>
+        <open-search-class>com.arcusys.valamis.web.service.OpenSearchImpl</open-search-class>
+        <friendly-url-mapping>test-web</friendly-url-mapping>
+        <control-panel-entry-category>content</control-panel-entry-category>
+        <control-panel-entry-weight>17.5</control-panel-entry-weight>
+        <asset-renderer-factory>com.arcusys.valamis.web.service.LessonAssetRendererFactory</asset-renderer-factory>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/DeleteConfirmationView.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>PackageManager</portlet-name>
+        <icon>/img/logo.png</icon>
+        <indexer-class>com.arcusys.valamis.web.service.LessonIndexer</indexer-class>
+        <open-search-class>com.arcusys.valamis.web.service.OpenSearchImpl</open-search-class>
+        <friendly-url-mapping>test-web</friendly-url-mapping>
+        <control-panel-entry-category>content</control-panel-entry-category>
+        <control-panel-entry-weight>17.5</control-panel-entry-weight>
+        <asset-renderer-factory>com.arcusys.valamis.web.service.LessonAssetRendererFactory</asset-renderer-factory>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/jquery-ui-1.10.4.custom.min.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/editVisibility.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/LiferayMediaGalleryDialog.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/lesson-manager/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-manager/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-manager/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ContentManager</portlet-name>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <ajaxable>false</ajaxable>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <!--<header-portlet-javascript>/js/vendor/backbone.js</header-portlet-javascript>-->
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+
+        <!--<header-portlet-javascript>/js/vendor/backbone.marionette.2.4.1.js</header-portlet-javascript>-->
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/jquery.mjs.nestedSortable.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/selectSite.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/treeViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/answersViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/questionViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/previewViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/entities.js</header-portlet-javascript>
+
+        <!--<header-portlet-javascript>/js/widgets/DeleteConfirmationView.js</header-portlet-javascript>-->
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/unset-ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/vendor/ckeditor/ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/mark-ckeditor.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>Gradebook</portlet-name>
+        <icon>/img/logo.png</icon>
+
+        <user-notification-definitions>notifications/gradebook/definitions.xml</user-notification-definitions>
+        <user-notification-handler-class>com.arcusys.valamis.web.notification.GradebookNotificationHandler</user-notification-handler-class>
+
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-request-attributes>false</private-request-attributes>
+        <private-session-attributes>false</private-session-attributes>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/tincan-min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/TincanHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/gradebook/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsUsersList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsLessonsList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsAttemptsList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsAssignmentsList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsGradingQueue.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsOverview.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/gradebook/viewsUserOverview.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <css-class-wrapper>valamis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>TinCanStatementViewer</portlet-name>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <instanceable>false</instanceable>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+        <header-portlet-css>/css/TinCanViewer.css</header-portlet-css>
+        <header-portlet-css>/css/jquery-ui-1.10.4.custom.min.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/tincan-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/TincanHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/statement-viewer/Base64.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/statement-viewer/Tabs.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/statement-viewer/TinCanQueryUtils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/statement-viewer/TinCanViewer.js</header-portlet-javascript>
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>SocialActivitiesTinCanMapper</portlet-name>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <instanceable>false</instanceable>
+        <private-session-attributes>false</private-session-attributes>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/activity-mapper/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/activity-mapper/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/activity-mapper/view.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <css-class-wrapper>valamis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningTranscript</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/LiferayUserSelectDialog.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/learning-transcript/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-transcript/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-transcript/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <css-class-wrapper>valamis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LRSToActivityMapper</portlet-name>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lrs-to-activity/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lrs-to-activity/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lrs-to-activity/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <css-class-wrapper>valamis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisSlidesEditor</portlet-name>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <requires-namespaced-parameters>false</requires-namespaced-parameters>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/colorpick.css</header-portlet-css>
+        <header-portlet-css>/css/bootstrap-timepicker.min.css</header-portlet-css>
+        <header-portlet-css>/css/reveal.min.css</header-portlet-css>
+        <header-portlet-css>/css/jquery-ui-1.10.4.custom.min.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+        <header-portlet-css>/css/video-js.min.css</header-portlet-css>
+        <header-portlet-css>/css/katex.min.css</header-portlet-css>
+        <header-portlet-css>/css/loadingSpinner.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/vendor/es6.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/web.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/typedarray.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/reveal.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/nested.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/colorpicker.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/backbone-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/editVisibility.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/model-base-entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/model-entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/entities.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap-timepicker.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.mjs.nestedSortable.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/video.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/katex.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/three.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/TrackballControls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/oauth-signature.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/question-manager/models/AnswerModel.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/question-manager/models/CategoryModel.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/question-manager/models/QuestionType.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/question-manager/models/QuestionModel.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/VideoView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/LiferayArticleView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/helper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/gapi-helper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/QuestionSelectView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/URIService.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/main.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/handlers.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/undo.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/keyboard-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/mode-helper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/reveal-controls-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/reveal-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/generic-item-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/sidebar-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/version-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/text-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/img-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/iframe-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/content-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/video-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/audio-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/pdf-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/pptx-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/math-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/webgl-element.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/arrange-module.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/lesson-studio/gridsnap-module.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/LiferayMediaGalleryDialog.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/content-manager/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/treeViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/answersViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/questionViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-manager/previewViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis_slides.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis_slides_theme.css</footer-portlet-css>
+        <footer-portlet-css>https://fonts.googleapis.com/css?family=Roboto:400,300,500</footer-portlet-css>
+        <footer-portlet-css>https://fonts.googleapis.com/css?family=Ubuntu:400,300,500</footer-portlet-css>
+        <footer-portlet-css>https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,700,700italic</footer-portlet-css>
+
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/unset-ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/vendor/ckeditor/ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/mark-ckeditor.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis valamis-slides</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AchievedCertificates</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/achieved-certificates/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/achieved-certificates/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/achieved-certificates/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningPaths</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/learning-paths/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-paths/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-paths/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyLessons</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/my-lessons/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-lessons/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-lessons/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisActivities</portlet-name>
+        <icon>/img/logo.png</icon>
+
+        <user-notification-definitions>notifications/activity/definitions.xml</user-notification-definitions>
+        <user-notification-handler-class>com.arcusys.valamis.web.notification.ActivityNotificationHandler</user-notification-handler-class>
+
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/valamis-activities/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-activities/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-activities/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+
+    <portlet>
+        <portlet-name>RecentLessons</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/recent-lessons/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/recent-lessons/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/recent-lessons/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisStudySummary</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/d3.v3.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-study-summary/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-study-summary/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-study-summary/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis portlet-transparent</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyCertificates</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/my-certificates/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-certificates/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-certificates/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>MyCourses</portlet-name>
+        <icon>/img/logo.png</icon>
+        <user-notification-definitions>notifications/course/definitions.xml</user-notification-definitions>
+        <user-notification-handler-class>com.arcusys.valamis.web.notification.CourseNotificationHandler</user-notification-handler-class>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/my-courses/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-courses/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/my-courses/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AllCourses</portlet-name>
+        <icon>/img/logo.png</icon>
+        <user-notification-definitions>notifications/allCourses/definitions.xml</user-notification-definitions>
+        <user-notification-handler-class>com.arcusys.valamis.web.notification.AllCoursesNotificationHandler</user-notification-handler-class>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+        <header-portlet-css>/css/jquery-ui-1.10.4.custom.min.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap-datetimepicker.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/LiferayMediaGalleryDialog.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/all-courses/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/edit.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editDetails.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/viewDetails.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editMembers.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editRequests.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/courseList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/addSiteRoles.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editQueue.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/bootstrap-datetimepicker.min.css</footer-portlet-css>
+        <footer-portlet-css>/css/bootstrap-datetimepicker-standalone.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/unset-ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/vendor/ckeditor/ckeditor.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/helpers/mark-ckeditor.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>AllCoursesStudent</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap-datetimepicker.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/LiferayMediaGalleryDialog.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/all-courses/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/edit.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editDetails.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/viewDetails.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editMembers.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editRequests.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/courseList.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/addSiteRoles.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/all-courses/views/editQueue.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/bootstrap-datetimepicker.min.css</footer-portlet-css>
+        <footer-portlet-css>/css/bootstrap-datetimepicker-standalone.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ContentProviderManager</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/selectize.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.fileupload.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/selectize.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/file-uploader/model/FileItem.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/file-uploader/view/FileUploader.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/widgets/LiferayMediaGalleryDialog.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/FormDataHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/SettingsHelper.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/content-provider-manager/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-provider-manager/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-provider-manager/views/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-provider-manager/views/edit.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/content-provider-manager/views/providerList.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>ValamisReport</portlet-name>
+        <icon>/img/logo.png</icon>
+        <scheduler-entry>
+            <scheduler-description>Report temporary files cleaner</scheduler-description>
+            <scheduler-event-listener-class>com.arcusys.valamis.web.listener.ReportScheduler</scheduler-event-listener-class>
+            <trigger>
+                <simple>
+                    <simple-trigger-value>1</simple-trigger-value>
+                    <time-unit>day</time-unit>
+                    <!-- time unit can be "day","hour", "minute", "second", or "week"-->
+                </simple>
+            </trigger>
+        </scheduler-entry>
+
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap-datetimepicker.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/vendor/d3.v3.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/valamis-report/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/selectUsersViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/viewsSettings.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/certificateGraphView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/topLessonsView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/averagePassingGradeView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/numberOfLessonsAttemptedView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/mostActiveUsersView.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/valamis-report/views.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/bootstrap-datetimepicker.min.css</footer-portlet-css>
+        <footer-portlet-css>/css/bootstrap-datetimepicker-standalone.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis_reports.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis-reports</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>LearningReport</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+        <header-portlet-css>/css/tooltipster.bundle.css</header-portlet-css>
+        <header-portlet-css>/css/tooltipster-valamis.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/tooltipster.bundle.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/learning-pattern-report/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/viewsSettings.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/viewsDatatable.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/viewsLessons.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/viewsCertificates.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/learning-pattern-report/selectUsersViews.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/valamis_reports.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis-reports</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+    </portlet>
+
+    <portlet>
+        <portlet-name>CertExpirationTracker</portlet-name>
+        <icon>/img/logo.png</icon>
+        <preferences-unique-per-layout>false</preferences-unique-per-layout>
+        <preferences-owned-by-group>false</preferences-owned-by-group>
+        <show-portlet-access-denied>false</show-portlet-access-denied>
+        <private-session-attributes>false</private-session-attributes>
+        <ajaxable>false</ajaxable>
+
+        <header-portlet-css>/css/backbone.modal.css</header-portlet-css>
+        <header-portlet-css>/css/backbone.modal.theme.css</header-portlet-css>
+        <header-portlet-css>/css/toastr.css</header-portlet-css>
+
+        <header-portlet-javascript>/js/Urls.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jquery.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/lodash.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone-min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/mustache.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.marionette.min.2.4.1.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/sync-override.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/marionette-utils.js</header-portlet-javascript> 
+        <header-portlet-javascript>/js/vendor/backbone.model-binder.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.modal-bundled.1.1.5.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/backbone.service.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery-ui-1.11.4.custom.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.ui.widget.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/jquery.iframe-transport.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/toastr.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/tooltipster.bundle.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/moment-with-locales.min.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/bootstrap-datetimepicker.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/vendor/d3.v3.min.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/helpers/TemplateCompiler.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/Utils.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/helpers/valamis-jq-plugins.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/widgets/valamisPaginator.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/common/valamisApp.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModels.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/views/baseLayout.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/valamisModalViews.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/common/models.js</header-portlet-javascript>
+
+        <header-portlet-javascript>/js/certificate-expiration-tracker/app.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/certificate-expiration-tracker/entities.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/certificate-expiration-tracker/views.js</header-portlet-javascript>
+        <header-portlet-javascript>/js/certificate-expiration-tracker/viewsSettings.js</header-portlet-javascript>
+
+        <footer-portlet-css>/css/bootstrap-datetimepicker.min.css</footer-portlet-css>
+        <footer-portlet-css>/css/bootstrap-datetimepicker-standalone.css</footer-portlet-css>
+        <footer-portlet-css>/css/valamis.css</footer-portlet-css>
+        <footer-portlet-javascript>/js/helpers/elementQuery.js</footer-portlet-javascript>
+
+        <css-class-wrapper>valamis</css-class-wrapper>
+        <add-default-resource>true</add-default-resource>
+
+    </portlet>
+
+    <role-mapper>
+        <role-name>administrator</role-name>
+        <role-link>Administrator</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>guest</role-name>
+        <role-link>Guest</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>power-user</role-name>
+        <role-link>Power User</role-link>
+    </role-mapper>
+    <role-mapper>
+        <role-name>user</role-name>
+        <role-link>User</role-link>
+    </role-mapper>
+</liferay-portlet-app>

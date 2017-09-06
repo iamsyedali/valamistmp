@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<table id="valamisSocialActivities" class="val-table">
+    <thead>
+    <tr>
+        <th>{{activity}}</th>
+        <th>{{tinCanVerb}}</th>
+    </tr>
+    </thead>
+    <tbody class="js-social-activities-mapper-data"></tbody>
+</table>
+
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script>
+    var jQueryActivityMapper = jQuery.noConflict();
+
+    jQueryActivityMapper(function () {
+        Backbone.emulateJSON = true;
+        Backbone.ajax = window.LearnAjax.ajax;
+        Utils.loadLanguage('socialActivitiesMapper', onActivityMapperLanguageLoad);
+    });
+
+    function onActivityMapperLanguageLoad(lang) {
+        ActivityMapperApp.start({
+            language: lang,
+            siteID: Liferay.ThemeDisplay.getScopeGroupId()
+        });
+
+        var collection = ActivityMapperApp.request('setting:list');
+        // {{#activityToVerb}}
+        collection.add({activityID: '{{className}}', mappedVerb: '{{verb}}', title: '{{title}}'});
+        // {{/activityToVerb}}
+    }
+</script>
+</body>
+</html>

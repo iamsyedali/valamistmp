@@ -1,0 +1,29 @@
+
+<div id="achievedCertificatesAppRegion">
+</div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var permissionActionsAchievedCertificates = {
+        };
+
+        var achievedCertificatesOptions = {
+            resourceName: 'dashboard',
+            permissions: permissionActionsAchievedCertificates,
+            app: achievedCertificates,
+            appOptions: {}
+        };
+
+        valamisApp.execute('subapp:start', achievedCertificatesOptions);
+    });
+
+</script>

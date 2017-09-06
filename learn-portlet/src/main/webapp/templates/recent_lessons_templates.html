@@ -1,0 +1,25 @@
+<script type="text/template" id="recentLessonsLayoutTemplate">
+    <div class="js-list-view simple-list">
+        <div class="div-table no-content-table js-no-recent-lesson hidden">
+            <div class="div-col div-col-center">{{noRecentLabel}}</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="recentLessonsItemViewTemplate">
+    <div class="tile-content">
+        <ul>
+            <li class="title ellipsis"><a href="{{lessonUrl}}">{{lessonTitle}}</a></li>
+            <li class=""> {{inLabel}}
+                {{#courseUrl}}
+                <a href="{{courseUrl}}">
+                {{/courseUrl}}
+                    {{courseTitle}}
+                {{#courseUrl}}
+                </a>
+                {{/courseUrl}}
+            </li>
+            <li class="time-label"> {{throughDate}}  </li>
+        </ul>
+    </div>
+</script>

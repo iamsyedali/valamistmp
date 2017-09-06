@@ -1,0 +1,32 @@
+
+<div id="learningPathsAppRegion">
+</div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+    Valamis.currentUserId = parseInt("{{userID}}");
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var permissionActionsLearningPaths = {};
+
+        var learningPathsOptions = {
+            resourceName: 'dashboard',
+            permissions: permissionActionsLearningPaths,
+            app: learningPaths,
+            appOptions: {
+                showInstanceCertificates: '{{certificateScope}}' == 'instance'
+            }
+        };
+
+        valamisApp.execute('subapp:start', learningPathsOptions);
+    });
+
+</script>

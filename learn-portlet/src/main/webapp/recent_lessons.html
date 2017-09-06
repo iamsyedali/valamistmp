@@ -1,0 +1,29 @@
+
+<div id="recentLessonsAppRegion">
+</div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var permissionActionsRecentLessons = {
+        };
+
+        var recentLessonsOptions = {
+            resourceName: 'dashboard',
+            permissions: permissionActionsRecentLessons,
+            app: recentLessons,
+            appOptions: {}
+        };
+
+        valamisApp.execute('subapp:start', recentLessonsOptions);
+    });
+
+</script>

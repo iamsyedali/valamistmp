@@ -1,0 +1,39 @@
+<div class="val-row val-study-summary" id="valamisStudySummaryAppRegion"></div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        var hideStatistic = eval('{{permissionHideStatistic}}');
+
+        var permissionActionsStudySummary = {
+            VSS_HIDE_STATISTIC: hideStatistic
+        };
+
+        var userModel = {
+            userPageUrl: '{{{userPageUrl}}}',
+            userPicture: '{{{userPicture}}}',
+            userName:'{{{userName}}}'
+        };
+
+        var studySummaryOptions = {
+            resourceName: 'dashboard',
+            permissions: permissionActionsStudySummary,
+            app: valamisStudySummary,
+            appOptions: {
+                userModel: userModel,
+                hideStatistic: hideStatistic
+            }
+        };
+
+        valamisApp.execute('subapp:start', studySummaryOptions);
+    });
+
+</script>

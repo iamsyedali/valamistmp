@@ -1,0 +1,176 @@
+<section data-state="short_{{id}}_{{questionNumber}}" id="task{{id}}_{{questionNumber}}">
+    <div class="short-question">
+        <div class="valamis-question js-valamis-question content{{id}}_{{questionNumber}}">
+            <div class="question-text">{{{text}}}</div>
+            <div class="answers-options js-answers-options">
+                <input class="question-short-answers" id="scormShortAnswer{{id}}_{{questionNumber}}" type="text" value="" placeholder="{{typeYourAnswerLabel}}"/>
+            </div>
+            <!--{{#autoShowAnswer}} -->
+            <button class="button big check-answer-button js-localized-label" id="checkAnswerButton" data-value="checkLabel"
+                    onclick="TinCanCourseHelpers['shortShowAnswers_{{id}}_{{questionNumber}}']()">
+            </button>
+            <!--{{/autoShowAnswer}} -->
+        </div>
+        <!--{{#autoShowAnswer}} -->
+        <div class="valamis-question js-valamis-question js-question-feedback answers answers{{id}}_{{questionNumber}}">
+            <div class="question-text">{{{text}}}</div>
+
+            <div class="result-icon small shift-left val-icon js-result-icon"></div>
+            <div class="result-label js-localized-label" data-value="yourAnswersLabel"></div>
+            <div id="usersAnswers{{id}}_{{questionNumber}}" class="answer-container answer-list-icon clearfix"></div>
+
+            <div class="result-icon small shift-left val-icon js-correct-answers hidden correct"></div>
+            <!-- {{#isCaseSensitive}} -->
+            <div class="js-localized-label result-label js-correct-answers hidden" data-value="correctAnswersCaseSensitiveLabel"></div>
+            <!-- {{/isCaseSensitive}} -->
+            <!-- {{^isCaseSensitive}} -->
+            <div class="js-localized-label result-label js-correct-answers hidden" data-value="correctAnswersLabel"></div>
+            <!-- {{/isCaseSensitive}} -->
+            <div id="correctAnswers{{id}}_{{questionNumber}}" class="answer-container js-correct-answers hidden clearfix">
+                <table class="answers-table"></table>
+            </div>
+
+            <div class="result-icon shift-left val-icon js-result-icon"></div>
+            <div id="answerCorrectness{{id}}_{{questionNumber}}" class="result-label">
+                <div class="js-right-answer-correctness">{{{rightAnswerText}}}</div>
+                <div class="js-wrong-answer-correctness">{{{wrongAnswerText}}}</div>
+            </div>
+
+            <div class="decorative-line">
+                <div class="choice-line"></div>
+            </div>
+
+            {{#hasExplanation}}
+            <div class="js-localized-label invisible-font" data-value="explanationLabel"></div>
+            <div id="explanation" class="question-explanation js-question-explanation">{{{explanation}}}</div>
+            {{/hasExplanation}}
+        </div>
+    </div>
+<!--{{/autoShowAnswer}} -->
+</section>
+<script type="text/javascript">
+    /*{{#autoShowAnswer}}*/
+    TinCanCourseHelpers['shortShowAnswers_{{id}}_{{questionNumber}}'] = function() {
+        var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}']();
+        var dataToCompare = answersToJSON('{{answers}}');
+
+        var questionContainer = jQuery('#slideEntity_{{questionNumber}}');
+        questionContainer.siblings('.rj-element').hide();
+
+        var questionContent = questionContainer.find('.content{{id}}_{{questionNumber}}');
+        var userAnswers = questionContainer.find('.answers{{id}}_{{questionNumber}}');
+        questionContent.hide();
+        userAnswers.show();
+
+        var correct = answers.isPassed;
+        var rightAnswerCorrectness = userAnswers.find('#answerCorrectness{{id}}_{{questionNumber}} .js-right-answer-correctness');
+        var wrongAnswerCorrectness = userAnswers.find('#answerCorrectness{{id}}_{{questionNumber}} .js-wrong-answer-correctness');
+
+        if (correct) {
+            var rightAnswerCorrectnessText = rightAnswerCorrectness.html();
+            if (rightAnswerCorrectnessText == '') {
+                rightAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsCorrectLabel']);
+            }
+            rightAnswerCorrectness.show();
+            wrongAnswerCorrectness.hide();
+
+            questionContainer.find('.js-result-icon').addClass('correct');
+        }
+        else {
+            var wrongAnswerCorrectnessText = wrongAnswerCorrectness.html();
+            if (wrongAnswerCorrectnessText == '') {
+                wrongAnswerCorrectness.html(LESSON_LABELS['yourAnswerIsIncorrectLabel']);
+            }
+            rightAnswerCorrectness.hide();
+            wrongAnswerCorrectness.show();
+
+            questionContainer.find('.js-result-icon').addClass('incorrect');
+        }
+
+        var learnerResponse = answers.learnerResponse;
+        if (learnerResponse.length)
+            jQuery("#usersAnswers{{id}}_{{questionNumber}}").html(learnerResponse);
+        else
+            jQuery("#usersAnswers{{id}}_{{questionNumber}}").html(LESSON_LABELS['noAnswerLabel']);
+        if (!correct) {
+            jQuery('.answers{{id}}_{{questionNumber}} .js-correct-answers').removeClass('hidden');
+
+            for (var i = 0; i < dataToCompare.length; i++) {
+                var elem = jQuery("<td class='answer-list-icon'>").append(dataToCompare[i].text);
+                jQuery("#correctAnswers{{id}}_{{questionNumber}} table").append(jQuery("<tr>").append(elem));
+            }
+        }
+
+        moveAnswers({{questionNumber}});
+
+        var questionId = {{id}};
+        var questionNumber = {{questionNumber}};
+        recalculateFeedbackSlideHeight(questionId, questionNumber);
+
+        /*resfresh div for screen readers*/
+        refreshStatusDiv();
+    };
+    /*{{/autoShowAnswer}}*/
+
+    TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}'] = function() {
+        var dataToCompare = answersToJSON('{{answers}}');
+        var isCaseSensitive = JSON.parse('{{{isCaseSensitive}}}');
+        var score = 0,
+            hasScore = false;
+
+        // this will check is user answer right
+        var userAnswer = jQuery("#scormShortAnswer{{id}}_{{questionNumber}}").val();
+
+        var isPassed = false;
+        var correctResponses = [];
+        for (var j = 0; j < dataToCompare.length; j++) {
+            if (isCaseSensitive) {
+                if (dataToCompare[j].text == userAnswer) {
+                    isPassed = true;
+                    if (dataToCompare[j].score) hasScore = true;
+                    score = dataToCompare[j].score;
+                }
+            } else {
+                if (dataToCompare[j].text.toLowerCase() == userAnswer.toLowerCase()) {
+                    isPassed = true;
+                    if (dataToCompare[j].score) hasScore = true;
+                    score = dataToCompare[j].score;
+                }
+            }
+            correctResponses.push(dataToCompare[j]);
+        }
+
+        var correctResponse = [];
+        for (var i = 0; i<dataToCompare.length; i++) {
+            correctResponse.push(dataToCompare[i].text);
+        }
+
+        return {
+            learnerResponse: userAnswer,
+            correctResponse: correctResponse.join("[,]"),
+            isPassed: isPassed,
+            score: (hasScore)?score:null
+        }
+    };
+
+    TinCanCourseModules['short_{{id}}_{{questionNumber}}'] = function(tincan) {
+        var answers = TinCanCourseHelpers['collectAnswers_{{id}}_{{questionNumber}}']();
+
+        var taskID = 'task{{id}}_{{questionNumber}}';
+
+        if (answers.isPassed) {
+            tincan.sendStatement(GetQuestionAnswerStatement(taskID, unescapeElement('{{text}}'), '{{title}}', 'fill-in', answers.learnerResponse, answers.correctResponse, true, 100, answers.score));
+            return 1;
+        } else {
+            tincan.sendStatement(GetQuestionAnswerStatement(taskID, unescapeElement('{{text}}'), '{{title}}', 'fill-in', answers.learnerResponse, answers.correctResponse, false, 0, answers.score));
+            return 0;
+        }
+    };
+
+    TinCanCourseSetAnswers['short_{{id}}_{{questionNumber}}'] = function(userAnswer) {
+        jQuery("#scormShortAnswer{{id}}_{{questionNumber}}").val(userAnswer);
+    };
+
+    TinCanCourseQuestionsAll['short_{{id}}_{{questionNumber}}'] = unescapeElement('{{title}}');
+    TinCanCourseQuestionsContent['short_{{id}}_{{questionNumber}}'] = unescapeElement('{{text}}');
+</script>

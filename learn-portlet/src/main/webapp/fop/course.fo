@@ -1,0 +1,33 @@
+<fo:table margin-left="10mm" table-layout="fixed" width = "185mm">
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-column column-width="40mm"/>
+    <fo:table-body>
+        <fo:table-row>
+            <fo:table-cell>
+                <fo:block font="13px sans-serif" color="#2c2c2c" text-align="left" font-weight="bold" margin-top="1mm">
+                    {{title}}
+                </fo:block>
+            </fo:table-cell>
+            <fo:table-cell>
+                <fo:block font="15px sans-serif" color="#2c2c2c" text-align="right" font-weight="bold" margin-top="1mm">
+                    {{grade}}
+                </fo:block>
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>
+  {{#hasLessons}}
+    {{{titleLesson}}}
+    <fo:block margin-left="20mm">
+        {{{lessons}}}
+    </fo:block>
+  {{/hasLessons}}
+  {{#hasAssignments}}
+    {{{titleAssignments}}}
+    <fo:block margin-left="20mm">
+      {{{assignments}}}
+    </fo:block>
+  {{/hasAssignments}}
+<fo:block text-align="right" space-before="1pt" space-after="2pt">
+      <fo:leader color="#dedede" leader-pattern="rule" rule-thickness="4px" leader-length="100%" text-align="left"/>
+    </fo:block>

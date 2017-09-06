@@ -1,0 +1,45 @@
+
+<div id="learningTranscriptAppRegion"></div>
+<input type="hidden" id="SCORMContextPath" value="{{contextPath}}"/>
+
+<script type="text/javascript">
+
+    var Valamis = Valamis || {};
+
+    jQueryValamis(document).ready(function () {
+
+        if (!valamisApp.started) {
+            valamisApp.start();
+        }
+
+        /**
+         * Mobile IE10 hack
+         */
+        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            msViewportStyle.appendChild(
+                    document.createTextNode("@-ms-viewport{width:auto!important}")
+            );
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+        /** Mobile IE10 hack */
+
+        var learningTranscriptPermissions = {
+            'LearningTranscript': {
+                VIEW_ALL: eval('{{viewAllPermission}}')
+            }
+        };
+
+        var learningTranscriptOptions = {
+            resourceName: 'learningTranscript',
+            permissions: learningTranscriptPermissions,
+            app: learningTranscript,
+            appOptions: {
+                isAssignmentDeployed: eval('{{isAssignmentDeployed}}')
+            }
+        };
+
+        valamisApp.execute('subapp:start', learningTranscriptOptions);
+    });
+
+</script>

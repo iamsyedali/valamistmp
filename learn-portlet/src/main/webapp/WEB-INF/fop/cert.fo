@@ -1,0 +1,25 @@
+<fo:table table-layout="fixed" width = "175mm" margin-left="20mm">
+    <fo:table-column column-width="proportional-column-width(1)"/>
+    <fo:table-body>
+        <fo:table-row  border-bottom-style="solid" border-top-width="1pt" border-bottom-color="#dedede">
+            <fo:table-cell  margin-left="0mm">
+                <fo:block font="13px sans-serif" color="#2c2c2c" text-align="left" margin-top="2mm" font-weight="bold">
+                    {{title}}
+                </fo:block>
+                {{^isOpenBadges}}
+                <fo:block font="11px sans-serif" color="#2c2c2c" text-align="left" margin-top="2mm">
+                     <fo:inline font-weight="bold">{{issueDateTitle}}:</fo:inline> {{issueDate}}
+                </fo:block>
+                <fo:block font="11px sans-serif" color="#2c2c2c" text-align="left" margin-top="2mm" >
+                     <fo:inline font-weight="bold">{{expirationDateTitle}}:</fo:inline> {{expirationDate}}
+                </fo:block>
+                {{/isOpenBadges}}
+                {{#isOpenBadges}}
+                <fo:block font="11px sans-serif" color="#2c2c2c" text-align="left" margin-top="2mm" >
+                          {{openBadges}}
+               </fo:block>
+               {{/isOpenBadges}}
+            </fo:table-cell>
+        </fo:table-row>
+    </fo:table-body>
+</fo:table>

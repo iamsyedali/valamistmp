@@ -1,0 +1,90 @@
+<section>
+    <div id="lesson-summary">
+        <span class="complete-title">
+            <span class="js-complete-title js-localized-label" data-value="lessonCongratulationsLabel"></span>
+            <span class="js-complete-title js-localized-label" data-value="lessonCompleteLabel"></span>
+        </span>
+
+        <span class="failed-title">
+            <span class="js-failed-title js-localized-label" data-value="lessonUnfortunatelyLabel"></span>
+            <span class="js-failed-title js-localized-label" data-value="lessonFailedLabel"></span>
+        </span>
+
+        <div class="decorative-line">
+            <div class="summary-line"></div>
+        </div>
+        <div class="lesson-statistic div-table">
+            <div class="pages-statistic div-col">
+                <div class="pages-pie-graphic js-pages-pie-graphic"></div>
+                <div class="pie-legend">
+                    <span class="ratio-label js-localized-label" data-value="lessonOpenedPagesLabel"></span>
+                    <span class="pages-ratio js-pages-ratio"></span>
+                </div>
+            </div>
+            <div class="questions-statistic div-col">
+                <div class="questions-pie-graphic js-questions-pie-graphic js-hide-questions-progress"></div>
+                <div class="pie-legend js-hide-questions-progress">
+                    <span class="ratio-label js-localized-label" data-value="lessonCorrectlyAnsweredLabel"></span>
+                    <span class="answers-ratio js-answers-ratio"></span>
+                </div>
+            </div>
+        </div>
+        <div class="decorative-line">
+            <div class="summary-line"></div>
+        </div>
+
+        <div class="lesson-questions">
+            <table class="js-hide-questions-progress">
+                <tbody class="js-lesson-questions">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    ComposeLessonSummarySlide = function() {
+        var lessonSuccess = getLessonSuccess();
+        var lessonQuestionStatistic = getLessonQuestionsStatistic();
+        var lessonPagesStatistic = getLessonPagesStatistic();
+
+        var slideElement = jQuery('#lesson-summary', Reveal.getCurrentSlide());
+
+        jQuery('.js-hide-questions-progress', slideElement).toggleClass('hidden', !lessonQuestionStatistic.hasQuestion);
+        jQuery('.js-complete-title', slideElement).toggleClass('hidden', !lessonSuccess);
+        jQuery('.js-failed-title', slideElement).toggleClass('hidden', lessonSuccess);
+
+        jQuery('.js-pages-ratio', slideElement).text(lessonPagesStatistic.viewedPages + '/' + lessonPagesStatistic.totalPages);
+        jQuery('.js-answers-ratio', slideElement).text(lessonQuestionStatistic.numberOfCorrectAnswers + '/' + lessonQuestionStatistic.totalQuestions);
+
+        cretePagesStatiticPie(lessonPagesStatistic.pagesProgressPercent);
+        if (lessonQuestionStatistic.hasQuestion) {
+            createQuestionsStatisticPie(lessonQuestionStatistic.questionsProgressPercent);
+        }
+
+        var target = jQuery('.js-lesson-questions', slideElement);
+        target.html('');
+        var targetHtml = '';
+        _.keys(TinCanCourseQuestions).forEach(function(key) {
+            var result, resultText, resultColor, resultIcon;
+            resultIcon = 'val-icon-checkmark';
+
+            if (TinCanCourseResults.hasOwnProperty(key)) {
+                result = TinCanCourseResults[key];
+                resultColor = (result) ? 'success' : 'failed';
+                resultIcon = (resultColor == 'failed') ? 'val-icon-exit' : 'val-icon-checkmark';
+            } else {
+                resultColor = 'inprogress';
+            }
+
+            resultText = '<tr><td class="progress-col ' + resultColor +'">';
+            resultText += '<div class="checkmark"><span class="val-icon ' + resultIcon +'"></span></div></td>';
+            resultText += '<td class="prompt-small">' + TinCanCourseQuestionsContent[key] + '</td>';
+            resultText += '</tr>';
+            targetHtml += resultText;
+        });
+        target.html(targetHtml);
+    }
+
+</script>
